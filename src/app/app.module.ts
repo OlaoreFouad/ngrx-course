@@ -1,3 +1,4 @@
+import { AuthGuard } from "./auth/auth.guard";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, isDevMode } from "@angular/core";
 
@@ -28,6 +29,7 @@ const routes: Routes = [
     path: "courses",
     loadChildren: () =>
       import("./courses/courses.module").then((m) => m.CoursesModule),
+    canActivate: [AuthGuard],
   },
   {
     path: "**",
@@ -51,6 +53,7 @@ const routes: Routes = [
     AuthModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([]),
   ],
   bootstrap: [AppComponent],
 })
